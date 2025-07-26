@@ -42,14 +42,14 @@ Assurez-vous d'avoir les éléments suivants installés sur votre machine :
 ```bash
 # Si vous n'avez pas encore cloné le projet
 git clone <URL_DU_DEPOT>
-cd zoo-typescript
+cd Zoo-Typescript
 ```
 
 ### Configuration du Backend (NestJS)
 
 1.  **Navigation :**
     ```bash
-    cd zoo-typescript/zoo-backend # Assurez-vous d'être dans le dossier du backend
+    cd Zoo-Typescript/zoo-backend # Assurez-vous d'être dans le dossier du backend
     ```
 2.  **Installation des Dépendances :**
     ```bash
@@ -63,7 +63,7 @@ cd zoo-typescript
         (Le nom de la base de données est `zoo`, utilisateur `postgres`, mot de passe `postgres`).
     *   Vérifiez que le conteneur est en cours d'exécution (`docker ps`).
 4.  **Variables d'Environnement :**
-    *   Créez un fichier `.env` à la racine du dossier `zoo-typescript` (au même niveau que `package.json`).
+    *   Créez un fichier `.env` à la racine du dossier `zoo-backend` (au même niveau que `package.json`).
         ```
         # Database Configuration
         DB_HOST=localhost
@@ -73,7 +73,7 @@ cd zoo-typescript
         DB_DATABASE=zoo
 
         # Auth0 Configuration
-        AUTH0_ISSUER_BASE_URL=https://dev-xvrd00dllx0ahsel.us.auth0.com// # <-- C'est le miens, vous pouvez l'utiliser pour ne pas tout reconfigurer
+        AUTH0_ISSUER_BASE_URL=https://dev-xvrd00dllx0ahsel.us.auth0.com/ # <-- C'est le miens, vous pouvez l'utiliser pour ne pas tout reconfigurer
         ```
 
 ### Configuration du Frontend (Angular)
@@ -157,7 +157,7 @@ Cette action injectera les rôles de l'utilisateur dans le token JWT.
 ### Lancer le Backend
 
 1.  Ouvrez un terminal.
-2.  Naviguez vers le dossier `zoo-typescript/zoo-backend`.
+2.  Naviguez vers le dossier `Zoo-Typescript/zoo-backend`.
 3.  Exécutez :
     ```bash
     npm run start:dev
@@ -167,7 +167,7 @@ Cette action injectera les rôles de l'utilisateur dans le token JWT.
 ### Lancer le Frontend
 
 1.  Ouvrez un **deuxième** terminal.
-2.  Naviguez vers le dossier `zoo-typescript/zoo-frontend`.
+2.  Naviguez vers le dossier `Zoo-Typescript/zoo-frontend`.
 3.  Exécutez :
     ```bash
     ng serve
