@@ -180,7 +180,9 @@ Cette action injectera les rôles de l'utilisateur dans le token JWT.
 
 *   Ouvrez `http://localhost:3000/api`.
 *   Pour tester les routes protégées, cliquez sur le bouton **"Authorize"** en haut à droite
-(il faut savoir que je n'ai pas réussi à le faire, mais c'est quand même sensé fonctionner de cette manière. De plus toutes les fonctionnalitées sont quand même fonctionnelles dans le front faisant que ce problème n'est pas majeur).
+(il faut savoir que je n'ai pas réussi à le faire, mais c'est quand même sensé fonctionner de cette manière.
+De plus toutes les fonctionnalitées sont quand même fonctionnelles dans le front faisant que ce problème n'est pas majeur
+Je suppose que cela ne fonctionne pas car la requête vient de :3000 et non :4200 mais en même en jouant avec les authorisations dans Auth0 je ne suis pas parvenu à le faire marcher).
 *   Dans le champ "Value", entrez `Bearer VOTRE_ACCESS_TOKEN`.
     *   Pour obtenir `VOTRE_ACCESS_TOKEN` :
         1.  Connectez-vous à votre application Angular (`http://localhost:4200`).
