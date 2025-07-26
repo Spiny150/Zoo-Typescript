@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Ajouter un nouvel animal</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Nom</mat-label>
+    <input matInput [(ngModel)]="animal.name" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Espèce</mat-label>
+    <input matInput [(ngModel)]="animal.species" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Santé</mat-label>
+    <input matInput type="number" [(ngModel)]="animal.health" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Annuler</button>
+  <button mat-button color="primary" (click)="onAddClick()">Ajouter</button>
+</div>

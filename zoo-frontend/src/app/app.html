@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+  <span> Zoo </span>
+  <span class="spacer"></span>
+  <!-- Ajout des routerLink -->
+  <button mat-button routerLink="/">Accueil</button>
+  <button mat-button routerLink="/liste">Animaux</button>
+  <button mat-button routerLink="/enclos">Enclos</button>
+
+  <span class="spacer"></span>
+
+  @if (auth.isAuthenticated$ | async) {
+  <span class="username"> {{ username }} </span>
+  <button mat-button (click)="logout()">Déconnexion</button>
+  } @else {
+  <button mat-button (click)="auth.loginWithRedirect()">Connexion</button>
+  }
+</mat-toolbar>
+
+<button mat-button (click)="testCallApi()">TEST API</button>
+
+<router-outlet></router-outlet>
