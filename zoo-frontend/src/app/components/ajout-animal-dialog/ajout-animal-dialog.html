@@ -9,12 +9,8 @@
     <input matInput [(ngModel)]="animal.species" />
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Santé</mat-label>
-    <input matInput type="number" [(ngModel)]="animal.health" />
-  </mat-form-field>
-  <mat-form-field>
     <mat-label>Enclos</mat-label>
-    <mat-select [(ngModel)]="animal.enclosId">
+    <mat-select [(ngModel)]="selectedEnclos">
       <mat-option *ngFor="let enclos of enclos" [value]="enclos.id">
         {{ enclos.name }}
       </mat-option>

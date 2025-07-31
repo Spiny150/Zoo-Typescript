@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { CreateAnimalDto } from '../../dto/create-animal.dto';
-import { EnclosDto } from '@api/model/enclosDto';
+import { EnclosDto } from '../../../api/model/enclosDto';
 import { EnclosService } from '../../../api/api/enclos.service';
 import { MatSelectModule } from '@angular/material/select';
 
@@ -30,8 +30,9 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './ajout-animal-dialog.scss',
 })
 export class AjoutAnimalDialogComponent implements OnInit {
-  animal: CreateAnimalDto = { name: '', species: '', health: 100, enclosId: undefined };
+  animal: CreateAnimalDto = { name: '', species: '', health: 100 };
   enclos: EnclosDto[] = [];
+  selectedEnclos: number | undefined;
 
   constructor(
     public dialogRef: MatDialogRef<AjoutAnimalDialogComponent>,
@@ -50,6 +51,9 @@ export class AjoutAnimalDialogComponent implements OnInit {
   }
 
   onAddClick(): void {
+    if (this.selectedEnclos) {
+      this.animal.enclosId = this.selectedEnclos;
+    }
     this.dialogRef.close(this.animal);
   }
 }

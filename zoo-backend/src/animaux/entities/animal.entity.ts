@@ -1,5 +1,6 @@
 // src/animaux/entities/animal.entity.ts
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Enclos } from '../../enclos/entities/enclos.entity';
 
 @Entity()
 export class Animal {
@@ -14,4 +15,7 @@ export class Animal {
 
   @Column({ default: 100 })
   health: number;
+
+  @ManyToOne(() => Enclos, (enclos) => enclos.animaux)
+  enclos: Enclos;
 }

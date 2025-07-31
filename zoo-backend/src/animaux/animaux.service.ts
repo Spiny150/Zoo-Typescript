@@ -12,21 +12,25 @@ export class AnimauxService {
     private readonly animalRepo: Repository<Animal>,
   ) {}
 
-  create(dto: CreateAnimalDto) {
+  async create(dto: CreateAnimalDto): Promise<Animal> {
     const animal = this.animalRepo.create(dto);
-    return this.animalRepo.save(animal);
+    if (dto.enclosId) {
+      animal.enclos = { id: dto.enclosId } as any;
+    }
+    const newAnimal = await this.animalRepo.save(animal);
+    return this.findOne(newAnimal.id);
   }
 
   findAll() {
-    return this.animalRepo.find();
+    return this.animalRepo.find({ relations: ['enclos'] });
   }
 
   findOne(id: number) {
-    return this.animalRepo.findOneBy({ id });
+    return this.animalRepo.findOne({ where: { id }, relations: ['enclos'] });
   }
 
   findByName(name: string) {
-    return this.animalRepo.findOneBy({ name });
+    return this.animalRepo.findOne({ where: { name }, relations: ['enclos'] });
   }
 
   deleteWithId(id: number) {

@@ -13,7 +13,7 @@ export class AnimauxController {
   @Post()
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles('gardien')
-  create(@Body() dto: CreateAnimalDto) {
+  async create(@Body() dto: CreateAnimalDto) {
     return this.service.create(dto);
   }
 

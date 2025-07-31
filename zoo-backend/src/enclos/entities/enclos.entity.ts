@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Animal } from '../../animaux/entities/animal.entity';
 
 @Entity()
 export class Enclos {
@@ -13,4 +14,7 @@ export class Enclos {
 
   @Column()
   type: string; // e.g., 'savane', 'aquatique', 'voliere'
+
+  @OneToMany(() => Animal, (animal) => animal.enclos)
+  animaux: Animal[];
 }
