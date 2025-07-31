@@ -6,6 +6,7 @@
     </mat-card-header>
     <mat-card-content>
       <p>Santé: {{ animal.health }}</p>
+      <p>Enclos: {{ animal.enclos?.name || 'Non assigné' }}</p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button (click)="goBack()">Retour à la liste</button>
