@@ -23,7 +23,7 @@ import { AuthService } from '@auth0/auth0-angular';
   templateUrl: './liste-animaux.html',
 })
 export class ListeAnimauxComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'species', 'health', 'action'];
+  displayedColumns: string[] = ['name', 'species', 'health', 'enclos', 'action'];
   dataSource: MatTableDataSource<AnimalDto> =
     new MatTableDataSource<AnimalDto>(); // On déclare un tableau de type AnimalDto
 

@@ -25,6 +25,12 @@
     </td>
   </ng-container>
 
+  <!-- Enclos -->
+  <ng-container matColumnDef="enclos">
+    <th mat-header-cell *matHeaderCellDef>Enclos</th>
+    <td mat-cell *matCellDef="let element">{{ element.enclos?.name || 'N/A' }}</td>
+  </ng-container>
+
   <!-- Action -->
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef>Action</th>

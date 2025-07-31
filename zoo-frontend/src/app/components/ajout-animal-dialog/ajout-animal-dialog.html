@@ -12,6 +12,14 @@
     <mat-label>Santé</mat-label>
     <input matInput type="number" [(ngModel)]="animal.health" />
   </mat-form-field>
+  <mat-form-field>
+    <mat-label>Enclos</mat-label>
+    <mat-select [(ngModel)]="animal.enclosId">
+      <mat-option *ngFor="let enclos of enclos" [value]="enclos.id">
+        {{ enclos.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Annuler</button>
