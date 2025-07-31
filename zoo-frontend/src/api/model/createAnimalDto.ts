@@ -18,5 +18,6 @@ export interface CreateAnimalDto {
      * The species of the animal
      */
     species: string;
+    enclosId?: number;
 }
 

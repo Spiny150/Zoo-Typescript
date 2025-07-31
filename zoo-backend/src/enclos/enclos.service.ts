@@ -21,7 +21,7 @@ export class EnclosService {
   }
 
   findOne(id: number): Promise<Enclos | undefined> {
-    return this.enclosRepo.findOneBy({ id });
+    return this.enclosRepo.findOne({ where: { id }, relations: ['animaux'] });
   }
 
   async remove(id: number): Promise<void> {

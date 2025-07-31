@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { AnimalDto } from '../../animaux/dto/animal.dto';
 
 export class EnclosDto {
   @ApiProperty({ description: 'Unique identifier of the enclosure', example: 1 })
@@ -12,4 +13,7 @@ export class EnclosDto {
 
   @ApiProperty({ description: 'Type of the enclosure (e.g., savane, aquatique)', example: 'savane' })
   type: string;
+
+  @ApiProperty({ type: () => [AnimalDto], description: 'List of animals in the enclosure' })
+  animaux?: AnimalDto[];
 }

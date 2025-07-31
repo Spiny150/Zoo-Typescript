@@ -7,6 +7,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { AnimalDto } from './animalDto';
 
 
 export interface EnclosDto { 
@@ -26,5 +27,9 @@ export interface EnclosDto {
      * Type of the enclosure (e.g., savane, aquatique)
      */
     type: string;
+    /**
+     * List of animals in the enclosure
+     */
+    animaux: Array<AnimalDto>;
 }
 

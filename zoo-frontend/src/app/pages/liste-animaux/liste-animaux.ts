@@ -70,9 +70,18 @@ export class ListeAnimauxComponent implements OnInit {
             // On envoie le nouvel animal à l'API qui devrait le creer et le renvoyer
             this.http
               .post<AnimalDto>(`${this.backendUrl}/animaux`, result, { headers })
-              .subscribe((animal) => {
-                console.log("L'animal a été ajouté : ", animal);
-                this.dataSource.data = [...this.dataSource.data, animal]; // On ajoute le nouvel animal au tableau une fois qu'il a ete cree
+              .subscribe({
+                next: (animal) => {
+                  console.log("L'animal a été ajouté : ", animal);
+                  this.dataSource.data = [...this.dataSource.data, animal];
+                },
+                error: (error) => {
+                  if (error.status === 400) {
+                    alert(error.error.message);
+                  } else {
+                    alert('Une erreur est survenue.');
+                  }
+                }
               });
           });
         }
