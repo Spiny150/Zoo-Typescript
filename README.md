@@ -5,22 +5,10 @@ Ce projet est une application de gestion de zoo, développée dans le cadre d'un
 ## Table des Matières
 
 1.  [Prérequis](#1-prérequis)
-2.  [Configuration du Projet](#2-configuration-du-projet)
-    *   [Clonage du Dépôt](#clonage-du-dépôt)
-    *   [Configuration du Backend (NestJS)](#configuration-du-backend-nestjs)
-    *   [Configuration du Frontend (Angular)](#configuration-du-frontend-angular)
-3.  [Configuration Auth0 (Étapes Manuelles Cruciales)](#3-configuration-auth0-étapes-manuelles-cruciales)
-    *   [Création de l'Application SPA](#création-de-lapplication-spa)
-    *   [Création de l'API](#création-de-lapi)
-    *   [Configuration des Rôles et Utilisateurs](#configuration-des-rôles-et-utilisateurs)
-    *   [Création de l'Action Post-Login (Custom Claim pour les Rôles)](#création-de-laction-post-login-custom-claim-pour-les-rôles)
-4.  [Lancement de l'Application](#4-lancement-de-lapplication)
-    *   [Lancer le Backend](#lancer-le-backend)
-    *   [Lancer le Frontend](#lancer-le-frontend)
-5.  [Tests des Fonctionnalités (Critères d'Évaluation)](#5-tests-des-fonctionnalités-critères-dévaluation)
-    *   [Accès à Swagger](#accès-à-swagger)
-    *   [Tests des Routes Animaux](#tests-des-routes-animaux)
-    *   [Tests des Routes Enclos (Nouvelle Entité)](#tests-des-routes-enclos-nouvelle-entité)
+2.  [Configuration et Lancement avec Docker](#2-configuration-et-lancement-avec-docker)
+3.  [Configuration Auth0 (Optionnel)](#3-configuration-auth0-optionnel)
+4.  [Tests des Fonctionnalités](#4-tests-des-fonctionnalités)
+5.  [Comptes de Test](#5-comptes-de-test)
 
 ---
 
@@ -28,69 +16,44 @@ Ce projet est une application de gestion de zoo, développée dans le cadre d'un
 
 Assurez-vous d'avoir les éléments suivants installés sur votre machine :
 
-*   **Node.js** (version 18 ou supérieure)
-*   **npm** (généralement inclus avec Node.js)
-*   **Angular CLI** (`npm install -g @angular/cli`)
-*   **Docker** (pour PostgreSQL)
-*   **DBeaver** (ou tout autre client PostgreSQL pour vérifier la BDD)
-*   Un compte **Auth0**
+*   **Docker**
+*   **Docker Compose**
+*   Un compte **Auth0** (optionnel, vous pouvez utiliser les comptes de test fournis)
 
-## 2. Configuration du Projet
+## 2. Configuration et Lancement avec Docker
 
-### Clonage du Dépôt
+Avec Docker, la configuration et le lancement du projet sont grandement simplifiés.
 
-```bash
-# Si vous n'avez pas encore cloné le projet
-git clone <URL_DU_DEPOT>
-cd Zoo-Typescript
-```
-
-### Configuration du Backend (NestJS)
-
-1.  **Navigation :**
+1.  **Clonage du Dépôt :**
     ```bash
-    cd Zoo-Typescript/zoo-backend # Assurez-vous d'être dans le dossier du backend
-    ```
-2.  **Installation des Dépendances :**
-    ```bash
-    npm install
-    ```
-3.  **Configuration de la Base de Données (PostgreSQL via Docker) :**
-    *   Lancez un conteneur PostgreSQL :
-        ```bash
-        docker run --name postgres-container -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=zoo -p 5432:5432 -d postgres:16
-        ```
-        (Le nom de la base de données est `zoo`, utilisateur `postgres`, mot de passe `postgres`).
-    *   Vérifiez que le conteneur est en cours d'exécution (`docker ps`).
-4.  **Variables d'Environnement :**
-    *   Créez un fichier `.env` à la racine du dossier `zoo-backend` (au même niveau que `package.json`).
-        ```
-        # Database Configuration
-        DB_HOST=localhost
-        DB_PORT=5432
-        DB_USERNAME=postgres
-        DB_PASSWORD=postgres
-        DB_DATABASE=zoo
-
-        # Auth0 Configuration
-        AUTH0_ISSUER_BASE_URL=https://dev-xvrd00dllx0ahsel.us.auth0.com/ # <-- C'est le miens, vous pouvez l'utiliser pour ne pas tout reconfigurer
-        ```
-
-### Configuration du Frontend (Angular)
-
-1.  **Navigation :**
-    ```bash
-    cd ../zoo-frontend # Retournez au dossier parent, puis allez dans le frontend
-    ```
-2.  **Installation des Dépendances :**
-    ```bash
-    npm install
+    git clone <URL_DU_DEPOT>
+    cd Zoo-Typescript
     ```
 
-## 3. Configuration Auth0 (Étapes Manuelles Cruciales)
+2.  **Configuration des Variables d'Environnement :**
+    Créez un fichier `.env` à la racine du projet en copiant le fichier `.env.example` :
+    ```bash
+    cp .env.example .env
+    ```
+    Ce fichier contient toutes les variables nécessaires pour lancer l'application, y compris les identifiants pour la base de données et la configuration Auth0. Vous pouvez utiliser les valeurs par défaut pour un premier lancement.
 
-Ces étapes doivent être effectuées sur le tableau de bord de votre compte Auth0 (`manage.auth0.com`).
-L'ayant déjà fais, si vous décidez d'utiliser mon URL Auth0, vous n'avez pas besoin de ces étapes et sont juste une liste de ce que j'ai fais.
+3.  **Lancement :**
+    Exécutez la commande suivante à la racine du projet :
+    ```bash
+    docker-compose up --build
+    ```
+    Cette commande va automatiquement :
+    *   Construire les images Docker pour le backend et le frontend.
+    *   Lancer les conteneurs pour la base de données PostgreSQL, le backend et le frontend.
+    *   La base de données `zoo` sera créée automatiquement.
+
+4.  **Accès à l'application :**
+    *   **Frontend :** [http://localhost:4200](http://localhost:4200)
+    *   **Backend (API Swagger) :** [http://localhost:3000/api](http://localhost:3000/api)
+
+## 3. Configuration Auth0 (Optionnel)
+
+Si vous ne souhaitez pas utiliser la configuration Auth0 par défaut (fournie dans le fichier `.env`), vous pouvez créer votre propre application et API sur le tableau de bord Auth0 (`manage.auth0.com`).
 
 ### Création de l'Application SPA
 
@@ -99,7 +62,7 @@ L'ayant déjà fais, si vous décidez d'utiliser mon URL Auth0, vous n'avez pas 
 3.  Choisissez **Single Page Web Applications**.
 4.  Nommez-la par exemple "Zoo Frontend" et cliquez sur **Create**.
 5.  Dans l'onglet **Settings** de votre nouvelle application :
-    *   Notez votre **Domain** et **Client ID**. Vous en aurez besoin pour le fichier `.env` du backend et `src/main.ts` du frontend.
+    *   Notez votre **Domain** et **Client ID**. Si vous souhaitez utiliser votre propre configuration Auth0, vous devrez mettre à jour les variables correspondantes dans le fichier `.env` à la racine du projet.
     *   Dans **Application URIs**, ajoutez `http://localhost:4200` aux champs suivants :
         *   **Allowed Callback URLs**
         *   **Allowed Logout URLs**
@@ -152,44 +115,21 @@ Cette action injectera les rôles de l'utilisateur dans le token JWT.
 6.  Cliquez sur **Deploy**.
 7.  Retournez au flux **Login** et **glissez-déposez** votre nouvelle action "Assign Zoo Roles" entre "Start" et "Complete".
 
-## 4. Lancement de l'Application
 
-### Lancer le Backend
 
-1.  Ouvrez un terminal.
-2.  Naviguez vers le dossier `Zoo-Typescript/zoo-backend`.
-3.  Exécutez :
-    ```bash
-    npm run start:dev
-    ```
-    Le backend devrait démarrer sur `http://localhost:3000`.
+## 4. Tests des Fonctionnalités
 
-### Lancer le Frontend
-
-1.  Ouvrez un **deuxième** terminal.
-2.  Naviguez vers le dossier `Zoo-Typescript/zoo-frontend`.
-3.  Exécutez :
-    ```bash
-    ng serve
-    ```
-    Le frontend devrait démarrer sur `http://localhost:4200`.
-
-## 5. Tests des Fonctionnalités
+Une fois l'application lancée avec Docker, vous pouvez tester les fonctionnalités.
 
 ### Accès à Swagger
 
 *   Ouvrez `http://localhost:3000/api`.
-*   Pour tester les routes protégées, cliquez sur le bouton **"Authorize"** en haut à droite
-(il faut savoir que je n'ai pas réussi à le faire, mais c'est quand même sensé fonctionner de cette manière.
-De plus toutes les fonctionnalitées sont quand même fonctionnelles dans le front faisant que ce problème n'est pas majeur
-Je suppose que cela ne fonctionne pas car la requête vient de :3000 et non :4200 mais en même en jouant avec les authorisations dans Auth0 je ne suis pas parvenu à le faire marcher).
-*   Dans le champ "Value", entrez `Bearer VOTRE_ACCESS_TOKEN`.
-    *   Pour obtenir `VOTRE_ACCESS_TOKEN` :
-        1.  Connectez-vous à votre application Angular (`http://localhost:4200`).
-        2.  Cliquez sur le bouton "TEST API".
-        3.  Ouvrez la console de votre navigateur (`F12`).
-        4.  Copiez le token affiché après "Access Token:".
-*   **Vérifiez les schémas :** Dans la section "Schemas" de Swagger, assurez-vous que `AnimalDto`, `CreateAnimalDto`, `EnclosDto`, `CreateEnclosDto` sont bien documentés avec leurs propriétés et exemples.
+*   Pour tester les routes protégées, vous aurez besoin d'un `Access Token`.
+*   Pour obtenir ce token :
+    1.  Connectez-vous à l'application Angular (`http://localhost:4200`).
+    2.  Ouvrez la console de votre navigateur (`F12`) et cherchez le token dans les logs réseau ou le stockage local.
+*   Dans l'interface Swagger, cliquez sur le bouton **"Authorize"** et entrez `Bearer VOTRE_ACCESS_TOKEN`.
+*   **Vérifiez les schémas :** Dans la section "Schemas" de Swagger, assurez-vous que `AnimalDto`, `CreateAnimalDto`, `EnclosDto`, `CreateEnclosDto` sont bien documentés.
 
 ### Tests des Routes Animaux
 
@@ -219,7 +159,7 @@ Je suppose que cela ne fonctionne pas car la requête vient de :3000 et non :420
 
 ---
 
-## 6. Comptes de Test
+## 5. Comptes de Test
 
 Voici les comptes que vous pouvez utiliser pour tester les différentes fonctionnalités et rôles :
 
